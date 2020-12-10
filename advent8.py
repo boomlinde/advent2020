@@ -21,10 +21,8 @@ def step(code, acc, pc):
 code = assemble(sys.stdin)
 
 acc, pc = 0, 0
-executed = {}
-while True:
-    if executed.get(pc):
-        break
-    executed[pc] = True
+executed = set()
+while pc not in executed:
+    executed.add(pc)
     acc, pc = step(code, acc, pc)
 print acc

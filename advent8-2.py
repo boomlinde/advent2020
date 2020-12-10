@@ -20,14 +20,13 @@ def step(code, acc, pc):
 
 def terminates(code):
     acc, pc = 0, 0
-    executed = {}
-    while True:
-        if executed.get(pc):
-            return False, acc
+    executed = set()
+    while pc not in executed:
         if pc >= len(code):
             return True, acc
-        executed[pc] = True
+        executed.add(pc)
         acc, pc = step(code, acc, pc)
+    return False, 0
 
 def findterminating(code):
     for i, ins in enumerate(code):
